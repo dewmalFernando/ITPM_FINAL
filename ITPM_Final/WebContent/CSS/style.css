@@ -1,0 +1,17 @@
+/* Styles go here */
+	
+textarea{
+ 	width: 100%;
+ 	height: 300px;
+    overflow: scroll;
+    line-height: 13px;
+    font-size: 13px;
+    font-family: monospace;
+    margin: 0;
+    outline: none;
+}
+
+
+/* textarea:focus{
+  border-color:#333;
+} */

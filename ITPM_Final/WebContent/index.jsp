@@ -1,0 +1,171 @@
+<%@page import="java.io.PrintWriter"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.servlet.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="CSS/main.css">
+<link rel="stylesheet" type="text/css"
+	href="Plugins/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="CSS/style.css" />
+<!--background: linear-gradient(45deg, #8614ce, #ff0057);-->
+<title>Insert title here</title>
+
+</head>
+<body class="body">
+
+	<!--Header section-->
+	<section>
+		<div class="header-container">
+			<header>
+				<!--Header image-->
+				<img class="header-image" src="Images/header-image-crop.png" alt="">
+				<!--Heading-->
+				<h1 class="heading">Code Quality Measure</h1>
+			</header>
+
+		</div>
+	</section>
+
+	<!--Main body part-->
+	<div class="container-fluid main">
+
+		<!--Description-->
+		<div class="description">
+			<p class="para">
+				A small description about the site asfd<br> asdfasfda <br>
+				asdfasfdaasdfasdf asdf asd f<br> adf sasd f<br>
+			</p>
+		</div>
+
+
+		<!--Button: browse
+            <input type="file" id="browse-button" accept="java, c++" onchange="readURL(this);" >
+    <label for="browse-button" id="labelFile" style="margin-top: 322px;">
+    Choose file
+    </label>-->
+		<form action="AccessFileServlet" method="post" name="form">
+
+
+			<div class=browse>
+				<label for="input-file">Choose a file:</label><br> <input
+					class="btn " type="file" id="input-file" name="code">
+			</div>
+			<div class="topic d-flex justify-content-center mx-auto">
+				<p class="display-4 font-weight-bold" style="display: none"
+					id="topicSize">Size</p>
+				<p class="display-4 font-weight-bold" style="display: none"
+					id="topicVariable">Variable</p>
+				<p class="display-4 font-weight-bold" style="display: none"
+					id="topicMethod">Method</p>
+				<p class="display-4 font-weight-bold" style="display: none"
+					id="topicInheritance">Inheritance</p>
+				<p class="display-4 font-weight-bold" style="display: none"
+					id="topicCoupling">Coupling</p>
+				<p class="display-4 font-weight-bold" style="display: none"
+					id="topicControlStr">Control Structure</p>
+			</div>
+
+			<!--Selection check boxes-->
+			<div class="btn-block checkboxes" data-toggle="checkboxs">
+				<!--Checkbox: size-->
+				<label class="btn btn-default lable"> <input type="checkbox"
+					name="selection" id="size" onchange="selectTopicFunction()"
+					onchange="checkDisable(this)">Size
+				</label>
+				<!--Checkbox: variables-->
+				<label class="btn btn-default lable"> <input type="checkbox"
+					name="selection" id="variables" onchange="selectTopicFunction()"
+					onchange="checkDisable(this)">variables
+				</label>
+				<!--Checkbox: method-->
+				<label class="btn btn-default lable"> <input type="checkbox"
+					name="selection" id="method" onchange="selectTopicFunction()"
+					onchange="checkDisable(this)">method
+				</label>
+				<!--Checkbox: inheritance-->
+				<label class="btn btn-default lable"> <input type="checkbox"
+					name="selection" id="inheritance" onchange="selectTopicFunction()"
+					onchange="checkDisable(this)">Inheritance
+				</label>
+				<!--Checkbox: coupling-->
+				<label class="btn btn-default lable"> <input type="checkbox"
+					name="selection" id="coupling" onchange="selectTopicFunction()"
+					onchange="checkDisable(this)">Coupling
+				</label>
+				<!--Checkbox: control-structures-->
+				<label class="btn btn-default lable"> <input type="checkbox"
+					name="selection" id="control-structures"
+					onchange="selectTopicFunction()" onchange="checkDisable(this)">Control
+					structures
+				</label>
+			</div>
+
+			<div class="display-code">
+				<div class="container">
+					<textarea id="demo" name="demo"></textarea>
+				</div>
+			</div>
+
+			<!--Control buttons-->
+			<div class="control-buttons">
+				<!--Button: enter-->
+				<button type="submit" class="btn calculate-button"
+					name="calculateButton">Calculate</button>
+
+				<!--Button: clean-->
+				<button class="btn clear-button" type="reset">Clean</button>
+			</div>
+		</form>
+		<!--Results viewer-->
+
+
+	</div>
+
+	<!--Footer-->
+	<div class="footer-container">
+		<!--Footer image-->
+		<img class="footer-image" src="Images/footer-image-crop.png" alt="">
+
+	</div>
+
+	<!-- Javascript -->
+	<script type="text/javascript" src="JS/jqueryComp.js"></script>
+	<script type="text/javascript"
+		src="Plugins/codemirror/lib/codemirror.js"></script>
+	<script type="text/javascript" src="JS/default.js"></script>
+
+	<script type="text/javascript" src="JS/behave.js"></script>
+	<script type="text/javascript" src="JS/script.js"></script>
+	
+	<script data-require="angularjs@1.3.6" data-semver="1.3.6"
+		src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.6/angular.min.js"></script>
+
+
+</body>
+</html>
