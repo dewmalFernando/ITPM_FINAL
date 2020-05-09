@@ -134,7 +134,7 @@ background-color
 
 			<h1 class="display-1"
 				style="center: 2%; margin-left: 100px; font-family: century gothic; font-size: 50px; margin-top: 10px">
-				<font color="#00376c">Complexity of Size</font>
+				<font color="#00376c">Complexity of Variables</font>
 			</h1>
 			<br>
 
@@ -142,12 +142,10 @@ background-color
 		<div>
 			<div class="form-group" style="font-size: 20px; font-weight: normal;">
 				<label for="complexity">Change weight:</label> <select
-					class="custom-select" name="weightOfSize">
-					<option value="1">Weight of Wop</option>
-					<option value="2">Weight of Wkw</option>
-					<option value="3">Weight of Wnv</option>
-					<option value="4">Weight of Wid</option>
-					<option value="5">Weight of Wsl</option>
+					class="custom-select" name="weightOfVariables">
+					<option value="1">Weight of Wvs</option>
+					<option value="2">Weight of Wpdtv</option>
+					<option value="3">Weight of Wcdtv</option>
 				</select>
 
 				<div class="input-group input-group-sm mb-3">
@@ -166,12 +164,10 @@ background-color
 				<tr>
 					<th style="font =weight: bold;">Line Number</th>
 					<th style="font =weight: bold;">Statement</th>
-					<th style="font =weight: bold;">Wop</th>
-					<th style="font =weight: bold;">Wkw</th>
-					<th style="font =weight: bold;">Wnv</th>
-					<th style="font =weight: bold;">Wid</th>
-					<th style="font =weight: bold;">Wsl</th>
-					<th style="font =weight: bold;">Cs</th>
+					<th style="font =weight: bold;">Wvs</th>
+					<th style="font =weight: bold;">Wpdtv</th>
+					<th style="font =weight: bold;">Wcdtv</th>
+					<th style="font =weight: bold;">Cv</th>
 				</tr>
 			</thead>
 
@@ -180,30 +176,23 @@ background-color
 				int x = 1;
 
 				String[] codeLines = (String[]) session.getAttribute("lines");
-				ArrayList<StatementLine> StatementListWop = (ArrayList<StatementLine>) session.getAttribute("Wop");
-				ArrayList<StatementLine> StatementListWkw = (ArrayList<StatementLine>) session.getAttribute("Wkw");
-				ArrayList<StatementLine> StatementListWnv = (ArrayList<StatementLine>) session.getAttribute("Wnv");
-				ArrayList<StatementLine> StatementListWid = (ArrayList<StatementLine>) session.getAttribute("Wid");
-				ArrayList<StatementLine> StatementListWsl = (ArrayList<StatementLine>) session.getAttribute("Wsl");
+				ArrayList<StatementLine> StatementListWvs = (ArrayList<StatementLine>) session.getAttribute("Wvs");
+				ArrayList<StatementLine> StatementListWpdtv = (ArrayList<StatementLine>) session.getAttribute("Wpdtv");
+				ArrayList<StatementLine> StatementListWcdtv = (ArrayList<StatementLine>) session.getAttribute("Wcdtv");
 
 				while (x <= codeLines.length) {
-					StatementLine Wop = StatementListWop.get(x - 1);
-					StatementLine Wkw = StatementListWkw.get(x - 1);
-					StatementLine Wnv = StatementListWnv.get(x - 1);
-					StatementLine Wid = StatementListWid.get(x - 1);
-					StatementLine Wsl = StatementListWsl.get(x - 1);
+					StatementLine Wvs = StatementListWvs.get(x - 1);
+					StatementLine Wpdtv = StatementListWpdtv.get(x - 1);
+					StatementLine Wcdtv = StatementListWcdtv.get(x - 1);
 			%>
 
 			<tr>
 				<td><%=x%></td>
 				<td><%=codeLines[x - 1].replace(" ", "&nbsp;")%></td>
-				<td><%=Wop.getComplexity()%></td>
-				<td><%=Wkw.getComplexity()%></td>
-				<td><%=Wnv.getComplexity()%></td>
-				<td><%=Wid.getComplexity()%></td>
-				<td><%=Wsl.getComplexity()%></td>
-				<td><%=Wop.getComplexity() + Wkw.getComplexity() + Wnv.getComplexity() + Wid.getComplexity()
-						+ Wsl.getComplexity()%></td>
+				<td><%=Wvs.getComplexity()%></td>
+				<td><%=Wpdtv.getComplexity()%></td>
+				<td><%=Wcdtv.getComplexity()%></td>
+				<td><%=Wvs.getComplexity() + Wpdtv.getComplexity() + Wcdtv.getComplexity()%></td>
 			</tr>
 
 			<%

@@ -71,7 +71,6 @@
     </label>-->
 		<form action="AccessFileServlet" method="post" name="form">
 
-
 			<div class=browse>
 				<label for="input-file">Choose a file:</label><br> <input
 					class="btn " type="file" id="input-file" name="code">
@@ -124,6 +123,19 @@
 					onchange="selectTopicFunction()" onchange="checkDisable(this)">Control
 					structures
 				</label>
+			</div>
+
+			<div class="form-group" style="font-size: 20px; font-weight: normal;">
+				<label for="complexity">Complexity Type:</label> 
+				<select class="custom-select" name ="type">
+
+					<option value="1">By Size</option>
+					<option value="2">By Variables</option>
+					<option value="3">By Methods</option>
+					<option value="4">By Control Structure</option>
+					<option value="5">By Inheritance</option>
+					<option value="6">By Coupling</option>
+				</select>
 			</div>
 
 			<div class="display-code">
