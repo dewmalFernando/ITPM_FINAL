@@ -55,11 +55,15 @@ li
 
 
 
+
  
 
 
 
+
 a
+
+
 
 
 
@@ -73,11 +77,15 @@ a
 
 
 
+
+
 :not
 
 
 
+
  
+
 
 
 
@@ -86,7 +94,9 @@ a
 
 
 
+
  
+
 
 
 
@@ -99,7 +109,10 @@ background-color
 
 
 
+
+
 :
+
 
 
 
@@ -107,7 +120,10 @@ background-color
 
 
 
+
 #ffd700
+
+
 
 
 
@@ -139,27 +155,35 @@ background-color
 			<br>
 
 		</div>
-		<div>
-			<div class="form-group" style="font-size: 20px; font-weight: normal;">
-				<label for="complexity">Change weight:</label> <select
-					class="custom-select" name="weightOfSize">
-					<option value="1">Weight of Wop</option>
-					<option value="2">Weight of Wkw</option>
-					<option value="3">Weight of Wnv</option>
-					<option value="4">Weight of Wid</option>
-					<option value="5">Weight of Wsl</option>
-				</select>
+		<form>
+			<div>
+				<div class="form-group"
+					style="font-size: 20px; font-weight: normal;">
+					<label for="complexity">Change weight:</label> <select
+						class="custom-select" name="weightOfSize">
+						<option value="1">Weight of Wop</option>
+						<option value="2">Weight of Wkw</option>
+						<option value="3">Weight of Wnv</option>
+						<option value="4">Weight of Wid</option>
+						<option value="5">Weight of Wsl</option>
+					</select>
 
-				<div class="input-group input-group-sm mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroup-sizing-sm">Weight</span>
+					<div class="input-group input-group-sm mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroup-sizing-sm">Weight</span>
+						</div>
+						<input type="text" class="form-control" aria-label="Small"
+							aria-describedby="inputGroup-sizing-sm">
 					</div>
-					<input type="text" class="form-control" aria-label="Small"
-						aria-describedby="inputGroup-sizing-sm">
-				</div>
+					<div class="col text-right">
+						<button class="btn btn-dark" type="submit"
+							name="sumbitButton" id="sumbitButton">Submit</button>
+					</div>
 
+				</div>
 			</div>
-		</div>
+		</form>
+
 		<table class="table" style="font-family: century gothic"
 			cellpadding="20px" cellspacing="20px" align="center" border="2">
 			<thead>

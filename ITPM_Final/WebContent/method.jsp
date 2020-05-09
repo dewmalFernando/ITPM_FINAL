@@ -56,12 +56,16 @@ li
 
 
 
+
  
 
 
 
 
+
 a
+
+
 
 
 
@@ -79,12 +83,16 @@ a
 
 
 
+
+
 :not
 
 
 
 
+
  
+
 
 
 
@@ -95,7 +103,9 @@ a
 
 
 
+
  
+
 
 
 
@@ -111,7 +121,10 @@ background-color
 
 
 
+
+
 :
+
 
 
 
@@ -121,7 +134,10 @@ background-color
 
 
 
+
 #ffd700
+
+
 
 
 
@@ -170,7 +186,10 @@ background-color
 					<input type="text" class="form-control" aria-label="Small"
 						aria-describedby="inputGroup-sizing-sm">
 				</div>
-
+				<div class="col text-right">
+					<button class="btn btn-dark" type="submit" name="sumbitButton"
+						id="sumbitButton">Submit</button>
+				</div>
 			</div>
 		</div>
 		<table class="table" style="font-family: century gothic"

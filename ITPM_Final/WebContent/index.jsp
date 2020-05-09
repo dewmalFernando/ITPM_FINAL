@@ -69,12 +69,17 @@
     <label for="browse-button" id="labelFile" style="margin-top: 322px;">
     Choose file
     </label>-->
+    
+    <!-- 
+    
+     -->
 		<form action="AccessFileServlet" method="post" name="form">
 
 			<div class=browse>
 				<label for="input-file">Choose a file:</label><br> <input
 					class="btn " type="file" id="input-file" name="code">
 			</div>
+			<!-- 
 			<div class="topic d-flex justify-content-center mx-auto">
 				<p class="display-4 font-weight-bold" style="display: none"
 					id="topicSize">Size</p>
@@ -89,41 +94,40 @@
 				<p class="display-4 font-weight-bold" style="display: none"
 					id="topicControlStr">Control Structure</p>
 			</div>
+			 -->
+			
 
 			<!--Selection check boxes-->
+			<!-- 
 			<div class="btn-block checkboxes" data-toggle="checkboxs">
-				<!--Checkbox: size-->
 				<label class="btn btn-default lable"> <input type="checkbox"
 					name="selection" id="size" onchange="selectTopicFunction()"
 					onchange="checkDisable(this)">Size
 				</label>
-				<!--Checkbox: variables-->
 				<label class="btn btn-default lable"> <input type="checkbox"
 					name="selection" id="variables" onchange="selectTopicFunction()"
 					onchange="checkDisable(this)">variables
 				</label>
-				<!--Checkbox: method-->
 				<label class="btn btn-default lable"> <input type="checkbox"
 					name="selection" id="method" onchange="selectTopicFunction()"
 					onchange="checkDisable(this)">method
 				</label>
-				<!--Checkbox: inheritance-->
 				<label class="btn btn-default lable"> <input type="checkbox"
 					name="selection" id="inheritance" onchange="selectTopicFunction()"
 					onchange="checkDisable(this)">Inheritance
 				</label>
-				<!--Checkbox: coupling-->
 				<label class="btn btn-default lable"> <input type="checkbox"
 					name="selection" id="coupling" onchange="selectTopicFunction()"
 					onchange="checkDisable(this)">Coupling
 				</label>
-				<!--Checkbox: control-structures-->
 				<label class="btn btn-default lable"> <input type="checkbox"
 					name="selection" id="control-structures"
 					onchange="selectTopicFunction()" onchange="checkDisable(this)">Control
 					structures
 				</label>
 			</div>
+			 -->
+			
 
 			<div class="form-group" style="font-size: 20px; font-weight: normal;">
 				<label for="complexity">Complexity Type:</label> 
