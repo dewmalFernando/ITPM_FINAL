@@ -38,6 +38,7 @@ body {
 .display-code{
 	background-color: white;
 	border-radius: 6px;
+	height: 400px;
 }
 
 .browse{
@@ -45,7 +46,9 @@ body {
 	top: -40px;	
 }
 
-
+#demo{
+	height:400px;
+}
 #size {
     color: white;
     margin: 5px;

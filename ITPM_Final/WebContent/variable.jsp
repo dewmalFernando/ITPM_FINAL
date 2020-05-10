@@ -168,7 +168,7 @@ background-color
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputGroup-sizing-sm">Weight</span>
 					</div>
-					<input type="text" class="form-control" aria-label="Small"
+					<input type="text" name="weightVariables" id="weightVariables"  class="form-control" aria-label="Small"
 						aria-describedby="inputGroup-sizing-sm">
 				</div>
 				<div class="col text-right">

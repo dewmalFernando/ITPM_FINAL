@@ -56,14 +56,6 @@
 	<div class="container-fluid main">
 
 		<!--Description-->
-		<div class="description">
-			<p class="para">
-				A small description about the site asfd<br> asdfasfda <br>
-				asdfasfdaasdfasdf asdf asd f<br> adf sasd f<br>
-			</p>
-		</div>
-
-
 		<!--Button: browse
             <input type="file" id="browse-button" accept="java, c++" onchange="readURL(this);" >
     <label for="browse-button" id="labelFile" style="margin-top: 322px;">

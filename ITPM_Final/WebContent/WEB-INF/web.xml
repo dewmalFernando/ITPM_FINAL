@@ -9,16 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  
   <servlet>
-  <servlet-name>AccessFileServlet</servlet-name>
-  <servlet-class>com.servlet.AccessFileServlet</servlet-class>
+    <servlet-name>AccessFileServlet</servlet-name>
+    <servlet-class>com.servlet.AccessFileServlet</servlet-class>
   </servlet>
-  
   <servlet-mapping>
-  <servlet-name>AccessFileServlet</servlet-name>
-  <url-pattern>/AccessFileServlet/*</url-pattern>
+    <servlet-name>AccessFileServlet</servlet-name>
+    <url-pattern>/AccessFileServlet/*</url-pattern>
   </servlet-mapping>
-  
 </web-app>
