@@ -1,8 +1,5 @@
 package com.servlet;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -13,9 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-
 import com.model.Files;
+import com.service.ControlStructureService;
 import com.service.FilesService;
 import com.service.MethodComplexity;
 import com.service.SizeComplexity;
@@ -76,19 +72,15 @@ public class AccessFileServlet extends HttpServlet {
 
 		HttpSession httpSession = request.getSession();
 
-		String[] tempArray;
-
 		String[] codeArray = code.split("\\r?\\n");
 		httpSession.setAttribute("lines", codeArray);
 		int arrayLen = codeArray.length;
 		int start;
-		int end;
-
 		for (start = 0; start < arrayLen; start++) {
 			out.println("Line " + (start + 1) + " :" + codeArray[start]);
 		}
 
-		ArrayList<IndividualFunction> allFunctions = common.divideToFunctions(codeArray);
+		ArrayList<IndividualFunction> allFunctions = Common.divideToFunctions(codeArray);
 		for (start = 0; start < allFunctions.size(); start++) {
 			IndividualFunction function = allFunctions.get(start);
 			out.println(function.getStart());
@@ -97,10 +89,10 @@ public class AccessFileServlet extends HttpServlet {
 		}
 
 		if (type == 1) {
-			ArrayList<StatementLine> StatementListWop = sizeComplexity.sizeByOperators(allFunctions, codeArray);
+			ArrayList<StatementLine> StatementListWop = SizeComplexity.sizeByOperators(allFunctions, codeArray);
 
 			out.println(
-					"Ctc Value for lines -------------------------------------------------------------------------------");
+					"Wop Value for lines -------------------------------------------------------------------------------");
 
 			for (start = 0; start < StatementListWop.size(); start++) {
 				StatementListWop.get(start);
@@ -108,10 +100,10 @@ public class AccessFileServlet extends HttpServlet {
 						+ StatementListWop.get(start).getComplexity());
 			}
 
-			ArrayList<StatementLine> StatementListWkw = sizeComplexity.sizeByKeyWords(allFunctions, codeArray);
+			ArrayList<StatementLine> StatementListWkw = SizeComplexity.sizeByKeyWords(allFunctions, codeArray);
 
 			out.println(
-					"Cnc Value for lines -------------------------------------------------------------------------------");
+					"Wkw Value for lines -------------------------------------------------------------------------------");
 
 			for (start = 0; start < StatementListWkw.size(); start++) {
 				StatementListWkw.get(start);
@@ -122,7 +114,7 @@ public class AccessFileServlet extends HttpServlet {
 			ArrayList<StatementLine> StatementListWnv = SizeComplexity.sizeByNumbers(allFunctions, codeArray);
 
 			out.println(
-					"Cnc Value for lines -------------------------------------------------------------------------------");
+					"Wnv Value for lines -------------------------------------------------------------------------------");
 
 			for (start = 0; start < StatementListWnv.size(); start++) {
 				StatementListWnv.get(start);
@@ -133,7 +125,7 @@ public class AccessFileServlet extends HttpServlet {
 			ArrayList<StatementLine> StatementListWid = SizeComplexity.sizeByKeyIdentifires(allFunctions, codeArray);
 
 			out.println(
-					"Cnc Value for lines -------------------------------------------------------------------------------");
+					"Wid Value for lines -------------------------------------------------------------------------------");
 
 			for (start = 0; start < StatementListWid.size(); start++) {
 				StatementListWid.get(start);
@@ -144,7 +136,7 @@ public class AccessFileServlet extends HttpServlet {
 			ArrayList<StatementLine> StatementListWsl = SizeComplexity.sizeByStrings(allFunctions, codeArray);
 
 			out.println(
-					"Cnc Value for lines -------------------------------------------------------------------------------");
+					"Wsl Value for lines -------------------------------------------------------------------------------");
 
 			for (start = 0; start < StatementListWsl.size(); start++) {
 				StatementListWsl.get(start);
@@ -172,8 +164,9 @@ public class AccessFileServlet extends HttpServlet {
 				out.println("Line Number " + StatementListWvs.get(start).getLineNumber() + ": Wvs :  "
 						+ StatementListWvs.get(start).getComplexity());
 			}
-			
-			ArrayList<StatementLine> StatementListWpdtv = VariableComplexity.variableByPremDataType(allFunctions, codeArray);
+
+			ArrayList<StatementLine> StatementListWpdtv = VariableComplexity.variableByPremDataType(allFunctions,
+					codeArray);
 
 			out.println(
 					"Wpdtv Value for lines -------------------------------------------------------------------------------");
@@ -183,8 +176,9 @@ public class AccessFileServlet extends HttpServlet {
 				out.println("Line Number " + StatementListWpdtv.get(start).getLineNumber() + ": Wpdtv :  "
 						+ StatementListWpdtv.get(start).getComplexity());
 			}
-			
-			ArrayList<StatementLine> StatementListWcdtv = VariableComplexity.variableByCompDataType(allFunctions, codeArray);
+
+			ArrayList<StatementLine> StatementListWcdtv = VariableComplexity.variableByCompDataType(allFunctions,
+					codeArray);
 
 			out.println(
 					"Wcdtv Value for lines -------------------------------------------------------------------------------");
@@ -213,7 +207,8 @@ public class AccessFileServlet extends HttpServlet {
 						+ StatementListWmrt.get(start).getComplexity());
 			}
 
-			ArrayList<StatementLine> StatementListWpdtp = MethodComplexity.methodByPrimDataTypePara(allFunctions, codeArray);
+			ArrayList<StatementLine> StatementListWpdtp = MethodComplexity.methodByPrimDataTypePara(allFunctions,
+					codeArray);
 
 			out.println(
 					"Wpdtp Value for lines -------------------------------------------------------------------------------");
@@ -224,7 +219,8 @@ public class AccessFileServlet extends HttpServlet {
 						+ StatementListWpdtp.get(start).getComplexity());
 			}
 
-			ArrayList<StatementLine> StatementListWcdtp = MethodComplexity.methodByCompDataTypePara(allFunctions, codeArray);
+			ArrayList<StatementLine> StatementListWcdtp = MethodComplexity.methodByCompDataTypePara(allFunctions,
+					codeArray);
 
 			out.println(
 					"Wcdtp Value for lines -------------------------------------------------------------------------------");
@@ -242,7 +238,67 @@ public class AccessFileServlet extends HttpServlet {
 		}
 
 		if (type == 4) {
+			ArrayList<StatementLine> StatementListCtc = ControlStructureService.calculateComplexityByType(allFunctions,
+					codeArray);
 
+			out.println(
+					"Ctc Value for lines -------------------------------------------------------------------------------");
+
+			for (start = 0; start < StatementListCtc.size(); start++) {
+				StatementListCtc.get(start);
+				out.println("Line Number " + StatementListCtc.get(start).getLineNumber() + ": Ctc :  "
+						+ StatementListCtc.get(start).getComplexity());
+			}
+
+			ArrayList<StatementLine> StatementListCnc = ControlStructureService
+					.calculateComplexityByNestingControlStructure(allFunctions, codeArray);
+
+			out.println(
+					"Cnc Value for lines -------------------------------------------------------------------------------");
+
+			for (start = 0; start < StatementListCnc.size(); start++) {
+				StatementListCnc.get(start);
+				out.println("Line Number " + StatementListCnc.get(start).getLineNumber() + ": Cnc :  "
+						+ StatementListCnc.get(start).getComplexity());
+			}
+
+			httpSession.setAttribute("Ctc", StatementListCtc);
+			httpSession.setAttribute("Cnc", StatementListCnc);
+			request.getRequestDispatcher("controlStructure.jsp").forward(request, response);
+		}
+
+		if (type == 5) {// Inheritance
+			ArrayList<StatementLine> StatementListCtc = ControlStructureService.calculateComplexityByType(allFunctions,
+					codeArray);
+
+			out.println(
+					"Ctc Value for lines -------------------------------------------------------------------------------");
+
+			for (start = 0; start < StatementListCtc.size(); start++) {
+				StatementListCtc.get(start);
+				out.println("Line Number " + StatementListCtc.get(start).getLineNumber() + ": Ctc :  "
+						+ StatementListCtc.get(start).getComplexity());
+			}
+
+			ArrayList<StatementLine> StatementListCnc = ControlStructureService
+					.calculateComplexityByNestingControlStructure(allFunctions, codeArray);
+
+			out.println(
+					"Cnc Value for lines -------------------------------------------------------------------------------");
+
+			for (start = 0; start < StatementListCnc.size(); start++) {
+				StatementListCnc.get(start);
+				out.println("Line Number " + StatementListCnc.get(start).getLineNumber() + ": Cnc :  "
+						+ StatementListCnc.get(start).getComplexity());
+			}
+
+			httpSession.setAttribute("Ctc", StatementListCtc);
+			httpSession.setAttribute("Cnc", StatementListCnc);
+			request.getRequestDispatcher("controlStructure.jsp").forward(request, response);
+		}
+
+		if (type == 6) {
+			// Coupling
 		}
 	}
 
