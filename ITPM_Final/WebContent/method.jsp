@@ -34,8 +34,7 @@ ul {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #00376c;
-	font-family: century gothic;
+	background-color: #2c2e2d;
 	font-size: 25px;
 }
 
@@ -52,104 +51,12 @@ li a {
 }
 
 li
-
-
-
-
-
- 
-
-
-
-
-
-a
-
-
-
-
-
-
-
-
-
-
-:hover
-
-
-
-
-
-
-
-
-
-
-:not
-
-
-
-
-
- 
-
-
-
-
-
-(
-.active
-
-
-
-
-
- 
-
-
-
-
-
-)
-{
-background-color
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
- 
-
-
-
-
-
-#ffd700
-
-
-
-
-
-
-
-
-
-
-;
+a:hover:not (.active ) {
+	background-color: #f2f5f4;
 }
+
 .active {
-	background-color: #ffd700;
+	background-color: #f2f5f4;
 }
 </style>
 </head>
@@ -164,33 +71,55 @@ background-color
 
 
 			<h1 class="display-1"
-				style="center: 2%; margin-left: 100px; font-family: century gothic; font-size: 50px; margin-top: 10px">
+				style="text-align: center; font-size: 50px; margin-top: 10px">
 				<font color="#00376c">Complexity of Methods</font>
 			</h1>
 			<br>
 
 		</div>
 		<div>
-			<div class="form-group" style="font-size: 20px; font-weight: normal;">
-				<label for="complexity">Change weight:</label> <select
-					class="custom-select" name="weightOfMethods">
-					<option value="1">Weight of Wmrt</option>
-					<option value="2">Weight of Wpdtp</option>
-					<option value="3">Weight of Wcdtp</option>
-				</select>
-
-				<div class="input-group input-group-sm mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroup-sizing-sm">Weight</span>
-					</div>
-					<input type="text" name="weightMethod" id="weightMethod" class="form-control" aria-label="Small"
-						aria-describedby="inputGroup-sizing-sm">
-				</div>
+			<form action="AccessFilesServlet" method="post" class="form-group">
+				<table class="table table-responsive-lg">
+					<caption style="caption-side: top; text-align:center; font-size:x-large;">Weights related to the method factor</caption>
+					<thead class="table-dark">
+						<tr>
+							<th scope="col" style="text-align:center">Program Component</th>
+							<th scope="col" style="text-align:center">Weight</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Method with a primitive return type</td>
+							<td><input class="form-control" type="number"
+								name="inputPrimitiveReturnWeight" id="inputPrimitiveReturnWeight" value="1"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Method with a composite return type</td>
+							<td><input class="form-control" type="number"
+								name="inputCompositeReturnWeight" id="inputCompositeReturnWeight" value="2"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Method with a void return type</td>
+							<td><input class="form-control" type="number"
+								name="inputVoidReturnWeight" id="inputVoidReturnWeight" value="0"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Primitive data type parameter</td>
+							<td><input class="form-control" type="number"
+								name="inputPrimitiveParaWeight" id="inputPrimitiveParaWeight" value="1"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Composite data type parameter</td>
+							<td><input class="form-control" type="number"
+								name="inputCompositeParaWeight" id="inputCompositeParaWeight" value="2"></td>
+						</tr>
+					</tbody>
+				</table>
 				<div class="col text-right">
 					<button class="btn btn-dark" type="submit" name="sumbitButton"
-						id="sumbitButton">Submit</button>
+						id="sumbitButton">Save</button>
 				</div>
-			</div>
+			</form>
 		</div>
 		<table class="table" style="font-family: century gothic"
 			cellpadding="20px" cellspacing="20px" align="center" border="2">

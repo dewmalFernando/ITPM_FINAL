@@ -34,8 +34,7 @@ ul {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #00376c;
-	font-family: century gothic;
+	background-color: #2c2e2d;
 	font-size: 25px;
 }
 
@@ -56,12 +55,25 @@ li
 
 
 
- 
+
+
+
+
+
+
+
+
 
 
 
 
 a
+
+
+
+
+
+
 
 
 
@@ -79,12 +91,24 @@ a
 
 
 
+
+
+
+
+
+
 :not
 
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -95,7 +119,13 @@ a
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -111,7 +141,16 @@ background-color
 
 
 
+
+
+
+
+
+
 :
+
+
+
 
 
 
@@ -121,7 +160,16 @@ background-color
 
 
 
-#ffd700
+
+
+
+#f2f5f4
+
+
+
+
+
+
 
 
 
@@ -133,7 +181,7 @@ background-color
 ;
 }
 .active {
-	background-color: #ffd700;
+	background-color: #f2f5f4;
 }
 </style>
 </head>
@@ -149,14 +197,15 @@ background-color
 
 
 			<h1 class="display-1"
-				style="center: 2%; margin-left: 100px; font-family: century gothic; font-size: 50px; margin-top: 10px">
+				style="text-align: center; font-size: 50px; margin-top: 10px">
 				<font color="#00376c">Complexity of Variables</font>
 			</h1>
 			<br>
 
 		</div>
 		<div>
-			<div class="form-group" style="font-size: 20px; font-weight: normal;">
+			<!-- 
+		<div class="form-group" style="font-size: 20px; font-weight: normal;">
 				<label for="complexity">Change weight:</label> <select
 					class="custom-select" name="weightOfVariables">
 					<option value="1">Weight of Wvs</option>
@@ -176,7 +225,47 @@ background-color
 						id="sumbitButton">Submit</button>
 				</div>
 			</div>
+		 -->
+			<form action="AccessFilesServlet" method="post" class="form-group">
+				<table class="table table-responsive-lg">
+					<caption style="caption-side: top; text-align:center; font-size:x-large;">Weights related to the variable factor</caption>
+					<thead class="table-dark">
+						<tr>
+							<th scope="col" style="text-align:center">Program Component</th>
+							<th scope="col" style="text-align:center">Weight</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Global Variable</td>
+							<td><input class="form-control" type="number"
+								name="inputGlobalWeight" id="inputGlobalWeight" value="2"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Local Variable</td>
+							<td><input class="form-control" type="number"
+								name="inputLocalWeight" id="inputLocalWeight" value="1"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Primitive Data Type Variable</td>
+							<td><input class="form-control" type="number"
+								name="inputPrimitiveVariableWeight" id="inputPrimitiveVariableWeight" value="1"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Composite Data Type Variable</td>
+							<td><input class="form-control" type="number"
+								name="inputCompositeVariableWeight" id="inputCompositeVariableWeight" value="2"></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="col text-right">
+					<button class="btn btn-dark" type="submit" name="sumbitButton"
+						id="sumbitButton">Save</button>
+				</div>
+			</form>
+
 		</div>
+
 		<table class="table" style="font-family: century gothic"
 			cellpadding="20px" cellspacing="20px" align="center" border="2">
 			<thead>

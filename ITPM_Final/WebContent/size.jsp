@@ -34,8 +34,7 @@ ul {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #00376c;
-	font-family: century gothic;
+	background-color: #2c2e2d;
 	font-size: 25px;
 }
 
@@ -52,88 +51,12 @@ li a {
 }
 
 li
-
-
-
-
- 
-
-
-
-
-a
-
-
-
-
-
-
-
-
-:hover
-
-
-
-
-
-
-
-
-:not
-
-
-
-
- 
-
-
-
-
-(
-.active
-
-
-
-
- 
-
-
-
-
-)
-{
-background-color
-
-
-
-
-
-
-
-
-:
-
-
-
-
- 
-
-
-
-
-#ffd700
-
-
-
-
-
-
-
-
-;
+a:hover:not (.active ) {
+	background-color: #f2f5f4;
 }
+
 .active {
-	background-color: #ffd700;
+	background-color: #f2f5f4;
 }
 </style>
 </head>
@@ -149,40 +72,52 @@ background-color
 
 
 			<h1 class="display-1"
-				style="center: 2%; margin-left: 100px; font-family: century gothic; font-size: 50px; margin-top: 10px">
+				style="text-align: center; font-size: 50px; margin-top: 10px">
 				<font color="#00376c">Complexity of Size</font>
 			</h1>
 			<br>
 
 		</div>
-		<form>
-			<div>
-				<div class="form-group"
-					style="font-size: 20px; font-weight: normal;">
-					<label for="complexity">Change weight:</label> <select
-						class="custom-select" name="weightOfSize">
-						<option value="1">Weight of Wop</option>
-						<option value="2">Weight of Wkw</option>
-						<option value="3">Weight of Wnv</option>
-						<option value="4">Weight of Wid</option>
-						<option value="5">Weight of Wsl</option>
-					</select>
-
-					<div class="input-group input-group-sm mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroup-sizing-sm">Weight</span>
-						</div>
-						<input type="text" name="weightSize" id="weightSize" class="form-control" aria-label="Small"
-							aria-describedby="inputGroup-sizing-sm">
-					</div>
-					<div class="col text-right">
-						<button class="btn btn-dark" type="submit"
-							name="sumbitButton" id="sumbitButton">Submit</button>
-					</div>
-
+		<div>
+		<form action="AccessFilesServlet" method="post" class="form-group">
+				<table class="table table-responsive-lg">
+				<caption style="caption-side: top; text-align:center; font-size:x-large;">Weights related to the size factor</caption>
+					<thead class="table-dark">
+					
+						<tr>
+							<th scope="col" style="text-align:center">Program Component</th>
+							<th scope="col" style="text-align:center">Weight</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Keyword</td>
+							<td><input class="form-control" type="number" name="inputKeywordWeight" value="1"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Identifier</td>
+							<td><input class="form-control" type="number" name="inputIdentifiersWeight" value="1"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Operator</td>
+							<td><input class="form-control" type="number" name="inputOperatorWeight" value="1"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Numeric Value</td>
+							<td><input class="form-control" type="number" name="inputNumericsWeight" value="1"></td>
+						</tr>
+						<tr class="table-secondary">
+							<td class="d-flex justify-content-center">Stirng Literal</td>
+							<td><input class="form-control" type="number" name="inputStringsWeight" value="1"></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="col text-right">
+					<button class="btn btn-dark" type="submit" name="sumbitButton"
+						id="sumbitButton">Save</button>
 				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 
 		<table class="table" style="font-family: century gothic"
 			cellpadding="20px" cellspacing="20px" align="center" border="2">

@@ -7,7 +7,13 @@ import utils.StatementLine;
 
 public class SizeComplexity {
 
-	// Working - not exactly
+	// Working - not exactly 
+	/**
+	 * Take a count of operators and calculate
+	 * @param functionList
+	 * @param codeArray
+	 * @return
+	 */
 	public static ArrayList<StatementLine> sizeByOperators(ArrayList<IndividualFunction> functionList,
 			String[] codeArray) {
 		int x;
@@ -17,16 +23,17 @@ public class SizeComplexity {
 		int start;
 		int end;
 		boolean isLinePresent;
-
 		int wop;
 
 		ArrayList<StatementLine> statementList = new ArrayList<StatementLine>();
 
 		String[] divideBySpaces;
+		//Checking whether the function list is null or not
 		if (functionList.size() == 0) {
 			return null;
 		}
 
+		
 		for (x = 0; x < functionList.size(); x++) {
 			IndividualFunction f1 = functionList.get(x);
 			start = f1.getStart();

@@ -28,6 +28,7 @@ import utils.StatementLine;
 public class AccessFileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	
 	Files files = new Files();
 	FilesService filesService = new FilesService();
 	Common common = new Common();
