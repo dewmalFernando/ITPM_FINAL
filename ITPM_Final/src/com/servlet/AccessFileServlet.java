@@ -1,9 +1,15 @@
 package com.servlet;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +34,6 @@ import utils.StatementLine;
 public class AccessFileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	Files files = new Files();
 	FilesService filesService = new FilesService();
 	Common common = new Common();
@@ -66,6 +71,8 @@ public class AccessFileServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String code = request.getParameter("demo");
 		int type = Integer.parseInt(request.getParameter("type"));
+		String path = request.getParameter("code");
+		String unzip = request.getParameter("unzip");
 
 		out.println(code);
 
@@ -81,226 +88,247 @@ public class AccessFileServlet extends HttpServlet {
 			out.println("Line " + (start + 1) + " :" + codeArray[start]);
 		}
 
-		ArrayList<IndividualFunction> allFunctions = Common.divideToFunctions(codeArray);
-		for (start = 0; start < allFunctions.size(); start++) {
-			IndividualFunction function = allFunctions.get(start);
-			out.println(function.getStart());
-			out.println(function.getEnd());
-			out.println(function.getMethodName());
+		MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+		String typeMap = fileTypeMap.getContentType(path);
+
+		
+		if (unzip.contains(".zip")) {
+			System.out.println("zip");
+			System.out.println(type);
+			
+		} else if (unzip.contains(".rar")) {
+			System.out.println("rar");
+			System.out.println(typeMap);
+			System.out.println(type);
+
+		} else {
+			System.out.println("unzipped");
+			System.out.println(typeMap);
+			System.out.println(type);
 		}
-
-		if (type == 1) {
-			ArrayList<StatementLine> StatementListWop = SizeComplexity.sizeByOperators(allFunctions, codeArray);
-
-			out.println(
-					"Wop Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListWop.size(); start++) {
-				StatementListWop.get(start);
-				out.println("Line Number " + StatementListWop.get(start).getLineNumber() + ": Wop :  "
-						+ StatementListWop.get(start).getComplexity());
+		
+			ArrayList<IndividualFunction> allFunctions = Common.divideToFunctions(codeArray);
+			for (start = 0; start < allFunctions.size(); start++) {
+				IndividualFunction function = allFunctions.get(start);
+				out.println(function.getStart());
+				out.println(function.getEnd());
+				out.println(function.getMethodName());
 			}
 
-			ArrayList<StatementLine> StatementListWkw = SizeComplexity.sizeByKeyWords(allFunctions, codeArray);
+			if (type == 1) {
+				ArrayList<StatementLine> StatementListWop = SizeComplexity.sizeByOperators(allFunctions, codeArray);
 
-			out.println(
-					"Wkw Value for lines -------------------------------------------------------------------------------");
+				out.println(
+						"Wop Value for lines -------------------------------------------------------------------------------");
 
-			for (start = 0; start < StatementListWkw.size(); start++) {
-				StatementListWkw.get(start);
-				out.println("Line Number " + StatementListWkw.get(start).getLineNumber() + ": Wkw :  "
-						+ StatementListWkw.get(start).getComplexity());
+				for (start = 0; start < StatementListWop.size(); start++) {
+					StatementListWop.get(start);
+					out.println("Line Number " + StatementListWop.get(start).getLineNumber() + ": Wop :  "
+							+ StatementListWop.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListWkw = SizeComplexity.sizeByKeyWords(allFunctions, codeArray);
+
+				out.println(
+						"Wkw Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListWkw.size(); start++) {
+					StatementListWkw.get(start);
+					out.println("Line Number " + StatementListWkw.get(start).getLineNumber() + ": Wkw :  "
+							+ StatementListWkw.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListWnv = SizeComplexity.sizeByNumbers(allFunctions, codeArray);
+
+				out.println(
+						"Wnv Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListWnv.size(); start++) {
+					StatementListWnv.get(start);
+					out.println("Line Number " + StatementListWnv.get(start).getLineNumber() + ": Wnv :  "
+							+ StatementListWnv.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListWid = SizeComplexity.sizeByKeyIdentifires(allFunctions,
+						codeArray);
+
+				out.println(
+						"Wid Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListWid.size(); start++) {
+					StatementListWid.get(start);
+					out.println("Line Number " + StatementListWid.get(start).getLineNumber() + ": Wid :  "
+							+ StatementListWid.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListWsl = SizeComplexity.sizeByStrings(allFunctions, codeArray);
+
+				out.println(
+						"Wsl Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListWsl.size(); start++) {
+					StatementListWsl.get(start);
+					out.println("Line Number " + StatementListWsl.get(start).getLineNumber() + ": Wsl :  "
+							+ StatementListWsl.get(start).getComplexity());
+				}
+
+				httpSession.setAttribute("Wop", StatementListWop);
+				httpSession.setAttribute("Wkw", StatementListWkw);
+				httpSession.setAttribute("Wnv", StatementListWnv);
+				httpSession.setAttribute("Wid", StatementListWid);
+				httpSession.setAttribute("Wsl", StatementListWsl);
+				request.getRequestDispatcher("size.jsp").forward(request, response);
+
 			}
 
-			ArrayList<StatementLine> StatementListWnv = SizeComplexity.sizeByNumbers(allFunctions, codeArray);
+			if (type == 2) {
+				ArrayList<StatementLine> StatementListWvs = VariableComplexity.variableByScope(allFunctions, codeArray);
 
-			out.println(
-					"Wnv Value for lines -------------------------------------------------------------------------------");
+				out.println(
+						"Wvs Value for lines -------------------------------------------------------------------------------");
 
-			for (start = 0; start < StatementListWnv.size(); start++) {
-				StatementListWnv.get(start);
-				out.println("Line Number " + StatementListWnv.get(start).getLineNumber() + ": Wnv :  "
-						+ StatementListWnv.get(start).getComplexity());
+				for (start = 0; start < StatementListWvs.size(); start++) {
+					StatementListWvs.get(start);
+					out.println("Line Number " + StatementListWvs.get(start).getLineNumber() + ": Wvs :  "
+							+ StatementListWvs.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListWpdtv = VariableComplexity.variableByPremDataType(allFunctions,
+						codeArray);
+
+				out.println(
+						"Wpdtv Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListWpdtv.size(); start++) {
+					StatementListWpdtv.get(start);
+					out.println("Line Number " + StatementListWpdtv.get(start).getLineNumber() + ": Wpdtv :  "
+							+ StatementListWpdtv.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListWcdtv = VariableComplexity.variableByCompDataType(allFunctions,
+						codeArray);
+
+				out.println(
+						"Wcdtv Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListWcdtv.size(); start++) {
+					StatementListWcdtv.get(start);
+					out.println("Line Number " + StatementListWcdtv.get(start).getLineNumber() + ": Wcdtv :  "
+							+ StatementListWcdtv.get(start).getComplexity());
+				}
+
+				httpSession.setAttribute("Wvs", StatementListWvs);
+				httpSession.setAttribute("Wpdtv", StatementListWpdtv);
+				httpSession.setAttribute("Wcdtv", StatementListWcdtv);
+				request.getRequestDispatcher("variable.jsp").forward(request, response);
 			}
 
-			ArrayList<StatementLine> StatementListWid = SizeComplexity.sizeByKeyIdentifires(allFunctions, codeArray);
+			if (type == 3) {
+				ArrayList<StatementLine> StatementListWmrt = MethodComplexity.methodByReturnType(allFunctions,
+						codeArray);
 
-			out.println(
-					"Wid Value for lines -------------------------------------------------------------------------------");
+				out.println(
+						"Wmrt Value for lines -------------------------------------------------------------------------------");
 
-			for (start = 0; start < StatementListWid.size(); start++) {
-				StatementListWid.get(start);
-				out.println("Line Number " + StatementListWid.get(start).getLineNumber() + ": Wid :  "
-						+ StatementListWid.get(start).getComplexity());
+				for (start = 0; start < StatementListWmrt.size(); start++) {
+					StatementListWmrt.get(start);
+					out.println("Line Number " + StatementListWmrt.get(start).getLineNumber() + ": Wmrt :  "
+							+ StatementListWmrt.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListWpdtp = MethodComplexity.methodByPrimDataTypePara(allFunctions,
+						codeArray);
+
+				out.println(
+						"Wpdtp Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListWpdtp.size(); start++) {
+					StatementListWpdtp.get(start);
+					out.println("Line Number " + StatementListWpdtp.get(start).getLineNumber() + ": Wpdtp :  "
+							+ StatementListWpdtp.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListWcdtp = MethodComplexity.methodByCompDataTypePara(allFunctions,
+						codeArray);
+
+				out.println(
+						"Wcdtp Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListWcdtp.size(); start++) {
+					StatementListWcdtp.get(start);
+					out.println("Line Number " + StatementListWcdtp.get(start).getLineNumber() + ": Wcdtp :  "
+							+ StatementListWcdtp.get(start).getComplexity());
+				}
+
+				httpSession.setAttribute("Wmrt", StatementListWmrt);
+				httpSession.setAttribute("Wpdtp", StatementListWpdtp);
+				httpSession.setAttribute("Wcdtp", StatementListWcdtp);
+				request.getRequestDispatcher("method.jsp").forward(request, response);
 			}
 
-			ArrayList<StatementLine> StatementListWsl = SizeComplexity.sizeByStrings(allFunctions, codeArray);
+			if (type == 4) {
+				ArrayList<StatementLine> StatementListCtc = ControlStructureService
+						.calculateComplexityByType(allFunctions, codeArray);
 
-			out.println(
-					"Wsl Value for lines -------------------------------------------------------------------------------");
+				out.println(
+						"Ctc Value for lines -------------------------------------------------------------------------------");
 
-			for (start = 0; start < StatementListWsl.size(); start++) {
-				StatementListWsl.get(start);
-				out.println("Line Number " + StatementListWsl.get(start).getLineNumber() + ": Wsl :  "
-						+ StatementListWsl.get(start).getComplexity());
+				for (start = 0; start < StatementListCtc.size(); start++) {
+					StatementListCtc.get(start);
+					out.println("Line Number " + StatementListCtc.get(start).getLineNumber() + ": Ctc :  "
+							+ StatementListCtc.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListCnc = ControlStructureService
+						.calculateComplexityByNestingControlStructure(allFunctions, codeArray);
+
+				out.println(
+						"Cnc Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListCnc.size(); start++) {
+					StatementListCnc.get(start);
+					out.println("Line Number " + StatementListCnc.get(start).getLineNumber() + ": Cnc :  "
+							+ StatementListCnc.get(start).getComplexity());
+				}
+
+				httpSession.setAttribute("Ctc", StatementListCtc);
+				httpSession.setAttribute("Cnc", StatementListCnc);
+				request.getRequestDispatcher("controlStructure.jsp").forward(request, response);
 			}
 
-			httpSession.setAttribute("Wop", StatementListWop);
-			httpSession.setAttribute("Wkw", StatementListWkw);
-			httpSession.setAttribute("Wnv", StatementListWnv);
-			httpSession.setAttribute("Wid", StatementListWid);
-			httpSession.setAttribute("Wsl", StatementListWsl);
-			request.getRequestDispatcher("size.jsp").forward(request, response);
+			if (type == 5) {// Inheritance
+				ArrayList<StatementLine> StatementListCtc = ControlStructureService
+						.calculateComplexityByType(allFunctions, codeArray);
 
+				out.println(
+						"Ctc Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListCtc.size(); start++) {
+					StatementListCtc.get(start);
+					out.println("Line Number " + StatementListCtc.get(start).getLineNumber() + ": Ctc :  "
+							+ StatementListCtc.get(start).getComplexity());
+				}
+
+				ArrayList<StatementLine> StatementListCnc = ControlStructureService
+						.calculateComplexityByNestingControlStructure(allFunctions, codeArray);
+
+				out.println(
+						"Cnc Value for lines -------------------------------------------------------------------------------");
+
+				for (start = 0; start < StatementListCnc.size(); start++) {
+					StatementListCnc.get(start);
+					out.println("Line Number " + StatementListCnc.get(start).getLineNumber() + ": Cnc :  "
+							+ StatementListCnc.get(start).getComplexity());
+				}
+
+				httpSession.setAttribute("Ctc", StatementListCtc);
+				httpSession.setAttribute("Cnc", StatementListCnc);
+				request.getRequestDispatcher("controlStructure.jsp").forward(request, response);
+			}
+
+			if (type == 6) {
+				// Coupling
+			}
 		}
-
-		if (type == 2) {
-			ArrayList<StatementLine> StatementListWvs = VariableComplexity.variableByScope(allFunctions, codeArray);
-
-			out.println(
-					"Wvs Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListWvs.size(); start++) {
-				StatementListWvs.get(start);
-				out.println("Line Number " + StatementListWvs.get(start).getLineNumber() + ": Wvs :  "
-						+ StatementListWvs.get(start).getComplexity());
-			}
-
-			ArrayList<StatementLine> StatementListWpdtv = VariableComplexity.variableByPremDataType(allFunctions,
-					codeArray);
-
-			out.println(
-					"Wpdtv Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListWpdtv.size(); start++) {
-				StatementListWpdtv.get(start);
-				out.println("Line Number " + StatementListWpdtv.get(start).getLineNumber() + ": Wpdtv :  "
-						+ StatementListWpdtv.get(start).getComplexity());
-			}
-
-			ArrayList<StatementLine> StatementListWcdtv = VariableComplexity.variableByCompDataType(allFunctions,
-					codeArray);
-
-			out.println(
-					"Wcdtv Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListWcdtv.size(); start++) {
-				StatementListWcdtv.get(start);
-				out.println("Line Number " + StatementListWcdtv.get(start).getLineNumber() + ": Wcdtv :  "
-						+ StatementListWcdtv.get(start).getComplexity());
-			}
-
-			httpSession.setAttribute("Wvs", StatementListWvs);
-			httpSession.setAttribute("Wpdtv", StatementListWpdtv);
-			httpSession.setAttribute("Wcdtv", StatementListWcdtv);
-			request.getRequestDispatcher("variable.jsp").forward(request, response);
-		}
-
-		if (type == 3) {
-			ArrayList<StatementLine> StatementListWmrt = MethodComplexity.methodByReturnType(allFunctions, codeArray);
-
-			out.println(
-					"Wmrt Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListWmrt.size(); start++) {
-				StatementListWmrt.get(start);
-				out.println("Line Number " + StatementListWmrt.get(start).getLineNumber() + ": Wmrt :  "
-						+ StatementListWmrt.get(start).getComplexity());
-			}
-
-			ArrayList<StatementLine> StatementListWpdtp = MethodComplexity.methodByPrimDataTypePara(allFunctions,
-					codeArray);
-
-			out.println(
-					"Wpdtp Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListWpdtp.size(); start++) {
-				StatementListWpdtp.get(start);
-				out.println("Line Number " + StatementListWpdtp.get(start).getLineNumber() + ": Wpdtp :  "
-						+ StatementListWpdtp.get(start).getComplexity());
-			}
-
-			ArrayList<StatementLine> StatementListWcdtp = MethodComplexity.methodByCompDataTypePara(allFunctions,
-					codeArray);
-
-			out.println(
-					"Wcdtp Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListWcdtp.size(); start++) {
-				StatementListWcdtp.get(start);
-				out.println("Line Number " + StatementListWcdtp.get(start).getLineNumber() + ": Wcdtp :  "
-						+ StatementListWcdtp.get(start).getComplexity());
-			}
-
-			httpSession.setAttribute("Wmrt", StatementListWmrt);
-			httpSession.setAttribute("Wpdtp", StatementListWpdtp);
-			httpSession.setAttribute("Wcdtp", StatementListWcdtp);
-			request.getRequestDispatcher("method.jsp").forward(request, response);
-		}
-
-		if (type == 4) {
-			ArrayList<StatementLine> StatementListCtc = ControlStructureService.calculateComplexityByType(allFunctions,
-					codeArray);
-
-			out.println(
-					"Ctc Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListCtc.size(); start++) {
-				StatementListCtc.get(start);
-				out.println("Line Number " + StatementListCtc.get(start).getLineNumber() + ": Ctc :  "
-						+ StatementListCtc.get(start).getComplexity());
-			}
-
-			ArrayList<StatementLine> StatementListCnc = ControlStructureService
-					.calculateComplexityByNestingControlStructure(allFunctions, codeArray);
-
-			out.println(
-					"Cnc Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListCnc.size(); start++) {
-				StatementListCnc.get(start);
-				out.println("Line Number " + StatementListCnc.get(start).getLineNumber() + ": Cnc :  "
-						+ StatementListCnc.get(start).getComplexity());
-			}
-
-			httpSession.setAttribute("Ctc", StatementListCtc);
-			httpSession.setAttribute("Cnc", StatementListCnc);
-			request.getRequestDispatcher("controlStructure.jsp").forward(request, response);
-		}
-
-		if (type == 5) {// Inheritance
-			ArrayList<StatementLine> StatementListCtc = ControlStructureService.calculateComplexityByType(allFunctions,
-					codeArray);
-
-			out.println(
-					"Ctc Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListCtc.size(); start++) {
-				StatementListCtc.get(start);
-				out.println("Line Number " + StatementListCtc.get(start).getLineNumber() + ": Ctc :  "
-						+ StatementListCtc.get(start).getComplexity());
-			}
-
-			ArrayList<StatementLine> StatementListCnc = ControlStructureService
-					.calculateComplexityByNestingControlStructure(allFunctions, codeArray);
-
-			out.println(
-					"Cnc Value for lines -------------------------------------------------------------------------------");
-
-			for (start = 0; start < StatementListCnc.size(); start++) {
-				StatementListCnc.get(start);
-				out.println("Line Number " + StatementListCnc.get(start).getLineNumber() + ": Cnc :  "
-						+ StatementListCnc.get(start).getComplexity());
-			}
-
-			httpSession.setAttribute("Ctc", StatementListCtc);
-			httpSession.setAttribute("Cnc", StatementListCnc);
-			request.getRequestDispatcher("controlStructure.jsp").forward(request, response);
-		}
-
-		if (type == 6) {
-			// Coupling
-		}
-	}
 
 }

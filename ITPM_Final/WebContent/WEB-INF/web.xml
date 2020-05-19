@@ -17,4 +17,12 @@
     <servlet-name>AccessFileServlet</servlet-name>
     <url-pattern>/AccessFileServlet/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>UnzipFileServlet</servlet-name>
+    <servlet-class>com.servlet.UnzipFileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UnzipFileServlet</servlet-name>
+    <url-pattern>/UnzipFileServlet/*</url-pattern>
+  </servlet-mapping>
 </web-app>

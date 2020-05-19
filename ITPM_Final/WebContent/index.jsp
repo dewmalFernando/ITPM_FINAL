@@ -70,6 +70,7 @@
 			<div class=browse>
 				<label for="input-file">Choose a file:</label><br> <input
 					class="btn " type="file" id="input-file" name="code">
+					<a  href="unzipFiles.jsp"><button class="btn btn-secondary" type="button" title="You this if you have a zipped file"> Unzip File</button></a>
 			</div>
 			<!-- 
 			<div class="topic d-flex justify-content-center mx-auto">
